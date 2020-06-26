@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Judge v2</title>
+
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+	<div class="container">
+		<div class="row rounded">
+			<div class="col-12">
+				<th:block th:include="~{common/navigation-bar::navigation}" />
+			</div>
+		</div>
+		<!-- row -->
+		<div class="row tm-mt-big justify-content-center">
+			<div class="col-xl-8 col-lg-10 col-md-12 col-sm-12">
+				<div class="bg-white tm-block">
+					<div class="row">
+						<div class="col-12">
+							<h2 class="tm-block-title d-inline-block">Add new role to
+								user</h2>
+						</div>
+					</div>
+
+					<div class="row mt-4 tm-edit-product-row">
+						<div class="col-xl-7 col-lg-7 col-md-12">
+							<form th:action="@{/roles/add}" th:method="POST"
+								class="tm-edit-product-form" th:object="${roleAdd}">
+								<div class="input-group mb-3 justify-content-center">
+									<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}"
+										class="text-danger"></p>
+								</div>
+								<div class="input-group mb-3">
+									<label for="userId"
+										class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Users</label>
+									<select th:field="*{username}"
+										class="custom-select col-xl-9 col-lg-8 col-md-8 col-sm-7"
+										id="username" name="username">
+										<option th:value="''">Select a user</option>
+										<option th:each="user : ${users}" th:value="${user}"
+											th:text="${user}"></option>
+									</select>
+								</div>
+								<div class="input-group mb-3 justify-content-center">
+									<small th:if="${#fields.hasErrors('username')}"
+										th:errors="*{username}" class="text-danger"></small>
+								</div>
+								<div class="input-group mb-3">
+									<label
+										class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-form-label">Users</label>
+									<div>
+										<th:block
+											th:each="role : ${T(bg.softuni.judge.enums.Roles).values()}"
+											th:object="${role}">
+											<input type="radio" th:id="${role}" name="role"
+												th:value="${role}">
+											<label th:for="${role}" th:text="${role}"></label>
+											<br />
+										</th:block>
+									</div>
+								</div>
+								<div class="input-group mb-3 justify-content-center">
+									<small th:if="${#fields.hasErrors('role')}" th:errors="*{role}"
+										class="text-danger"></small>
+								</div>
+
+								<div class="input-group mb-3">
+									<div class="ml-auto col-xl-8 col-lg-8 col-md-8 col-sm-7 pl-0">
+										<button type="submit" class="btn btn-primary">Add</button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<div class="col-xl-4 col-lg-4 col-md-12 mx-auto mb-4">
+							<img src="/img/admin.gif" alt="Exercise picture" width="100%">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="row">
+			<div class="col-12 container-fluid text-right font-weight-light">
+				<p class="d-inline-block tm-bg-black text-white py-2 px-4">
+					&copy; Spring Team 2020</p>
+			</div>
+		</footer>
+	</div>
+
+</body>
+
+</html>
